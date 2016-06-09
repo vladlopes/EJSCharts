@@ -9091,6 +9091,7 @@
 	___lineseries.pointColor = undefined; // If left undefined, point color will inherit from series
 	___lineseries.pointBorderSize = 0; // Set to 0 to cancel border drawing
 	___lineseries.pointBorderColor = "rgb(255,255,255)";
+	___lineseries.lineDash = undefined;
 
 	//	--------------------------------------------------------------------------
 	//	FUNCTION: __doOnDataAvailable
@@ -9339,6 +9340,10 @@
 
 		if (j < plen) {
 
+			if (this.lineDash && ctx.setLineDash)
+				ctx.setLineDash(this.lineDash);
+			else
+				ctx.setLineDash([]);
 			ctx.beginPath();
 			if (j > 0) --j;
 			j_begin = j;
@@ -9496,6 +9501,10 @@
 				if (++pointsDrawn > 5000 && EJSC.__isIE) {
 					if( drawMode == 'line') {
 						ctx.stroke();
+						if (this.lineDash && ctx.setLineDash)
+							ctx.setLineDash(this.lineDash);
+						else
+							ctx.setLineDash([]);
 						ctx.beginPath();
 						ctx.moveTo( x_axis.__pt2px(last_point[0]) , y_axis.__pt2px(last_point[1]) );
 					} else {
@@ -19651,6 +19660,10 @@
 			ctx.strokeStyle = EJSC.utility.__getColor(this.color, this.lineOpacity / 100).rgba;
 			ctx.fillStyle = EJSC.utility.__getColor(this.color, this.opacity / 100).rgba;
 			
+			if (this.lineDash && ctx.setLineDash)
+				ctx.setLineDash(this.lineDash);
+			else
+				ctx.setLineDash([]);
 			ctx.beginPath();
 			
 			for( var i=0 ; i<pts.length ; i++ ) {
