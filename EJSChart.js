@@ -1431,7 +1431,7 @@
 			}
 
 			if (this.__el == null) {
-				alert("Unable to create EJSC.Chart\n\nElement \"" + id + "\" does not exist on the current page.");
+				console.log("Unable to create EJSC.Chart\n\nElement \"" + id + "\" does not exist on the current page.");
 				return false;
 			} else {
 				this.__el.innerHTML = "";
@@ -10687,7 +10687,7 @@
 					this.pointStyle = style;
 					break;
 				default:
-					alert("Invalid scatter style: '" + style + "'");
+					console.log("Invalid scatter style: '" + style + "'");
 			}
 		}
 		this.__getChart().__draw(true);
@@ -11071,7 +11071,7 @@
 			case "left":			ret = { x: (c<d)?(c/2):(d/2), y: h/2 }; break;
 			case "right":			ret = { x: (c<d)?w-(c/2):w-(d/2), y: h/2 }; break;
 			default:
-				alert("'" + this.position + "' is an invalid pie position, using 'center'.");
+				console.log("'" + this.position + "' is an invalid pie position, using 'center'.");
 				ret = { x: w/2 , y: h/2 };
 		}
 
@@ -12703,7 +12703,7 @@
 
 			}
 		} catch (e) {
-			alert(e.message);
+			console.log(e.message);
 		} finally {
 			this.onBarNeedsColor = saveBarNeedsColor;
 			this.useColorArray = saveUseColorArray;
@@ -14532,17 +14532,17 @@
 	___stackedbarseries.addSeries = function( series , redraw ) {
 
 		if (this.__getChart() == undefined) {
-			alert("EJSC.StackedBarSeries must be added to a chart prior to adding series.");
+			console.log("EJSC.StackedBarSeries must be added to a chart prior to adding series.");
 			return;
 		}
 
 		if (series.__type != 'bar') {
-			alert("Unable to add series type '" + series.__type + "' to EJSC.StackedBarSeries.");
+			console.log("Unable to add series type '" + series.__type + "' to EJSC.StackedBarSeries.");
 			return;
 		}
 
 		if (series.orientation != this.orientation) {
-			alert("Invalid Series Orientation.  Orientation of children series must match EJSC.StackedBarSeries.orientation.");
+			console.log("Invalid Series Orientation.  Orientation of children series must match EJSC.StackedBarSeries.orientation.");
 			return;
 		}
 
@@ -15473,13 +15473,13 @@
 		var points = this.__dataSeries.__points;
 
 		if( points.length == 0 ) {
-			alert('No Points to Try');
+			console.log('No Points to Try');
 			return false;
 		} else if( points.length == 1 ) {
-			alert('Not Enough Points to Try');
+			console.log('Not Enough Points to Try');
 			return false;
 		} else if( points[0].__y() == undefined ) {
-			alert('Need X and Y Values to Compute');
+			console.log('Need X and Y Values to Compute');
 			return false;
 		}
 
@@ -15500,7 +15500,7 @@
 				this.computeLogarithmicTrend();
 				break;
 			default:
-				alert('Invalid Trend Type Specified');
+				console.log('Invalid Trend Type Specified');
 				return false;
 				break;
 		};
@@ -15575,7 +15575,7 @@
 
 		for( var i=0 ; i<points.length ; i++ ) {
 			if( points[i].__x() <= 0 || points[i].__y() <= 0 ) {
-				alert( 'Invalid Data for Power Trend' );
+				console.log( 'Invalid Data for Power Trend' );
 				return false;
 			}
 		}
@@ -15679,7 +15679,7 @@
 
 		var e = ( sum_x2 - ( n * x_bar * x_bar ) );
 		if( e == 0 ) {
-			alert('Invalid Data');
+			console.log('Invalid Data');
 			return false;
 		}
 
@@ -16595,7 +16595,7 @@
 					div.style.left = ( ( x_center - div.offsetWidth/2 ) + 'px' );
 					break;
 				default:
-					alert("'" + this.label.position + "' is an invalid label position, using 'centerBottom'.");
+					console.log("'" + this.label.position + "' is an invalid label position, using 'centerBottom'.");
 					div.style.top = ( ( y_center + 10 ) + 'px' );
 					div.style.left = ( ( x_center - div.offsetWidth/2 ) + 'px' );
 
@@ -16665,7 +16665,7 @@
 				case "left":			ret = { x: (c<d)?(c/2):(d/2), y: h/2 }; break;
 				case "right":			ret = { x: (c<d)?w-(c/2):w-(d/2), y: h/2 }; break;
 				default:
-					alert("'" + this.position + "' is an invalid gauge position, using 'center'.");
+					console.log("'" + this.position + "' is an invalid gauge position, using 'center'.");
 					ret = { x: w/2 , y: h/2 };
 			}
 
