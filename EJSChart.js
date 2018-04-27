@@ -3146,7 +3146,8 @@
 			x: null,
 			y: null,
 			label: null,
-			userdata: null
+			userdata: null,
+			color: null,
 		},
 		//	--------------------------------------------------------------------------
 		//	CLASS: __DataHandler
@@ -8067,7 +8068,7 @@
 
 
 	// XYPoint
-	EJSC.XYPoint = function(x, y, label, data, owner) {
+	EJSC.XYPoint = function(x, y, label, data, owner, color) {
 
 		this.__owner 		= owner;
 		this.x 				= (x.__label == undefined?x:x.__label);
@@ -8081,6 +8082,7 @@
 		// JHM: 2007-06-12 - Added userdata property
 		this.label			= label;
 		this.userdata		= data;
+		this.color			= color;
 		this.__x 			= function() {
 			if (this.__x_label.__label == undefined) { this.__x = function() { return this.x; }; }
 			else { this.__x = function() { return this.__x_label.__index; }; }
@@ -9132,7 +9134,7 @@
 				data[i].y = parseFloat(data[i].y);
 			}
 
-			this.__points.push(new EJSC.XYPoint(data[i].x, data[i].y, data[i].label, data[i].userdata, this));
+			this.__points.push(new EJSC.XYPoint(data[i].x, data[i].y, data[i].label, data[i].userdata, this, data[i].color));
 		}
 
 		// Flag has data
@@ -9188,7 +9190,8 @@
 				x: null,
 				y: null,
 				label: null,
-				userdata: null
+				userdata: null,
+				color: null,
 			}
 		);
 
@@ -10367,6 +10370,7 @@
 
 				ctx.lineWidth = ps;
 				ctx.strokeStyle = EJSC.utility.__getColor( this.color , (this.opacity / 100) ).rgba;
+				var lastcolor = this.color;
 
 				var r = ps / 2;
 
@@ -10378,6 +10382,13 @@
 				while (j < plen) {
 
 					if (this.__points[j].x !== null && this.__points[j].x !== NaN && this.__points[j].y !== null && this.__points[j].y !== NaN) {
+
+						if (this.__points[j].color && this.__points[j].color != lastcolor) {
+							lastcolor = this.__points[j].color;
+							ctx.stroke();
+							ctx.strokeStyle = EJSC.utility.__getColor(lastcolor, (this.lineOpacity / 100) ).rgba;
+							ctx.beginPath();
+						}
 
 						plotX = x_axis.__pt2px(this.__points[j].__x());
 						plotY = y_axis.__pt2px(this.__points[j].__y());
